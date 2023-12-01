@@ -15,19 +15,38 @@ function populateDropdown() {
 
 // Event listener for form submission
 const feedbackForm = document.getElementById('feedbackForm');
-feedbackForm.addEventListener('submit', function(event) {
+feedbackForm.addEventListener('submit', async function(event) {
   event.preventDefault(); // Prevents default form submission for demonstration
 
   // You can handle form submission here (e.g., send data to a server)
   const formData = new FormData(feedbackForm);
-  // Process formData as needed (e.g., send it to a backend using fetch)
-  console.log(formData);
 
-  // Show submission confirmation to the user
-  alert('Form submitted successfully!');
-  
-  // Reset form values after submission
-  feedbackForm.reset();
+  // Convert formData to a plain object
+  const formDataObject = {};
+  formData.forEach((value, key) => {
+    formDataObject[key] = value;
+  });
+
+  // Save form data to Cosmos DB (assuming you have a server-side endpoint)
+  try {
+    const response = await fetch('/api/saveFormData', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formDataObject),
+    });
+
+    if (response.ok) {
+      alert('Form submitted successfully!');
+      feedbackForm.reset();
+    } else {
+      throw new Error('Failed to save form data');
+    }
+  } catch (error) {
+    console.error('Error saving form data:', error);
+    alert('Failed to submit form. Please try again.');
+  }
 });
 
 // Call the function to populate the dropdown when the page loads
