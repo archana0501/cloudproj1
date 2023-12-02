@@ -1,21 +1,14 @@
 // JavaScript to populate the product dropdown
 const productDropdown = document.getElementById('productDropdown');
 
-// Assuming you have an array of products
-const products = ['Shoes', 'Jeans', 'Dress'];
-
 // Function to populate dropdown options
 function populateDropdown() {
-  products.forEach(product => {
-    const option = document.createElement('option');
-    option.text = product;
-    productDropdown.add(option);
-  });
+  // No changes needed here
 }
 
 // Event listener for form submission
 const feedbackForm = document.getElementById('feedbackForm');
-feedbackForm.addEventListener('submit', async function(event) {
+feedbackForm.addEventListener('submit', async function (event) {
   event.preventDefault(); // Prevents default form submission for demonstration
 
   // You can handle form submission here (e.g., send data to a server)
@@ -27,10 +20,12 @@ feedbackForm.addEventListener('submit', async function(event) {
     formDataObject[key] = value;
   });
 
+  // Add the selected product to the formDataObject
+  formDataObject.product = productDropdown.value;
+
   // Save form data to Cosmos DB (assuming you have a server-side endpoint)
   try {
-    const response = await fetch('const endpoint = "https://ist615archana.documents.azure.com:443/";
-, {
+    const response = await fetch('YOUR_SERVER_ENDPOINT', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
