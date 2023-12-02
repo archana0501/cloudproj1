@@ -29,7 +29,8 @@ feedbackForm.addEventListener('submit', async function(event) {
 
   // Save form data to Cosmos DB (assuming you have a server-side endpoint)
   try {
-    const response = await fetch('/api/saveFormData', {
+    const response = await fetch('const endpoint = "https://ist615archana.documents.azure.com:443/";
+, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
